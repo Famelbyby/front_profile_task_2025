@@ -1,3 +1,8 @@
+$indexBorderColor: #a565eb;
+$tableWidthLayout: calc(60% - 50px);
+$tableBorderColor: #e5e5e5;
+$noRecordsColor: #8b8686;
+
 .table {
     &-record {
         display: flex;
@@ -26,7 +31,7 @@
 
         &__index {
             padding: 0 10px;
-            border-right: 2px solid #a565eb;
+            border-right: 2px solid $indexBorderColor;
             height: 100%;
             display: flex;
             align-items: center;
@@ -36,9 +41,9 @@
 
     &-layout {
         display: flex;
-        max-width: calc(60% - 50px);
-        min-width: calc(60% - 50px);
-        border: 1px solid #e5e5e5;
+        max-width: $tableWidthLayout;
+        min-width: $tableWidthLayout;
+        border: 1px solid $tableBorderColor;
         border-radius: 5px;
         flex-direction: column;
         padding: 20px;
@@ -51,6 +56,6 @@
         align-items: center;
         font-size: 24px;
         box-sizing: border-box;
-        color: #8b8686;
+        color: $noRecordsColor;
     }
 }
