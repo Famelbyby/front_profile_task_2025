@@ -1,39 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { GetRecordsAnswer, RecordType } from '../../shared/Interfaces';
-import { GetRecords } from '../../pages/TablePage/TablePageAPI';
-import { CODE_OK } from '../../shared/Codes';
-
-const RECORDS_MOCK: RecordType[] = [
-    { fields: ['asdas', 'asdas', '-d-s'] },
-    { fields: ['asdas', 'asdas', '-d-s', 'as', 'fdjfdnvdfhvhjfvnjfdvdfj'] },
-    {
-        fields: [
-            '32423',
-            'vd,vlk',
-            '1',
-            '32423',
-            'vd,vlk',
-            'fdjfdnvdfhvhjfvnjfdvdfj',
-            '32423',
-            'vd,vlk',
-            '1',
-            '32423',
-            'vd,vlk',
-            '1',
-            '32423',
-            'vd,vlk',
-            '1',
-        ],
-    },
-];
+import type {
+    GetRecordsAnswer,
+    PostRecordAnswer,
+    RecordType,
+} from '../../shared/Interfaces';
+import { GetRecords, PostRecord } from '../../pages/TablePage/TablePageAPI';
+import { CODE_CREATED, CODE_OK } from '../../shared/Codes';
 
 export interface TableState {
     records: RecordType[];
 }
 
 const initialState: TableState = {
-    records: RECORDS_MOCK,
+    records: [],
 };
 
 export const tableSlice = createSlice({
@@ -58,15 +38,28 @@ export const tableSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(GetRecords.fulfilled, (state: TableState, action) => {
-            const { status, records } = action.payload as GetRecordsAnswer;
+        builder
+            .addCase(GetRecords.fulfilled, (state: TableState, action) => {
+                const { status, records } = action.payload as GetRecordsAnswer;
 
-            if (status !== CODE_OK) {
-                return;
-            }
+                if (status !== CODE_OK) {
+                    return;
+                }
 
-            state.records = records || [];
-        });
+                state.records = records || [];
+            })
+            .addCase(PostRecord.fulfilled, (state: TableState, action) => {
+                const { status, record } =
+                    action.payload as unknown as PostRecordAnswer;
+
+                if (status !== CODE_CREATED) {
+                    return;
+                }
+
+                if (record !== undefined) {
+                    state.records = [...state.records, record];
+                }
+            });
     },
 });
 

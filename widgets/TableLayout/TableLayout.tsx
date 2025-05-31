@@ -18,7 +18,9 @@ const TableRecord: React.FC<TableRecordProps> = ({ fields, index }) => {
                 return (
                     <div
                         className="table-record__field"
-                        style={{ maxWidth: `calc(100% / ${fields.length})` }}
+                        style={{
+                            maxWidth: `calc((100% - 60px) / ${fields.length})`,
+                        }}
                         key={fieldIndex}
                     >
                         {field}

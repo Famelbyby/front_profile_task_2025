@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { PostRecord } from '../../pages/TablePage/TablePageAPI';
 
 export interface AddRecordState {
     fields: string[];
     isValidRecord: boolean;
+    isWaitingForResponse: boolean;
 }
 
 interface ChangeFieldProps {
@@ -16,6 +18,7 @@ const INITIAL_FIELDS_STATE = ['', '', '', '', ''];
 const initialState: AddRecordState = {
     fields: INITIAL_FIELDS_STATE,
     isValidRecord: false,
+    isWaitingForResponse: false,
 };
 
 export const addRecordSlice = createSlice({
@@ -58,6 +61,15 @@ export const addRecordSlice = createSlice({
                 true
             );
         },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(PostRecord.pending, (state: AddRecordState) => {
+                state.isWaitingForResponse = true;
+            })
+            .addCase(PostRecord.fulfilled, (state: AddRecordState) => {
+                state.isWaitingForResponse = false;
+            });
     },
 });
 

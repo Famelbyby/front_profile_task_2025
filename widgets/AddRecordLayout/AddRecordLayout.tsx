@@ -1,7 +1,7 @@
 import React from 'react';
 import './AddRecordLayout.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import type { AppState } from '../../app/store';
+import { type AppDispatch, type AppState } from '../../app/store';
 import {
     addField,
     changeField,
@@ -9,6 +9,7 @@ import {
     deleteField,
 } from '../../app/slices/AddRecordSlice';
 import { MAX_FIELD_LENGTH } from '../../shared/Consts';
+import { PostRecord } from '../../pages/TablePage/TablePageAPI';
 
 const AddRecordLayoutHeader: React.FC = () => {
     return <div className="add-record-header">Добавить запись</div>;
@@ -92,8 +93,10 @@ const AddRecordLayoutFields: React.FC = () => {
 };
 
 const AddRecordLayoutFooter: React.FC = () => {
-    const { isValidRecord } = useSelector((state: AppState) => state.addRecord);
-    const dispatch = useDispatch();
+    const { fields, isValidRecord } = useSelector(
+        (state: AppState) => state.addRecord
+    );
+    const dispatch = useDispatch<AppDispatch>();
 
     return (
         <div className="add-record-footer">
@@ -104,6 +107,13 @@ const AddRecordLayoutFooter: React.FC = () => {
                         ? ' add-record-footer__send-button_forbidden'
                         : '')
                 }
+                onClick={() => {
+                    if (!isValidRecord) {
+                        return;
+                    }
+
+                    dispatch(PostRecord({ fields }));
+                }}
             >
                 Добавить
             </div>

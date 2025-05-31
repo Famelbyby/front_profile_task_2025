@@ -36,6 +36,7 @@ $noRecordsColor: #8b8686;
             display: flex;
             align-items: center;
             width: 20px;
+            user-select: none;
         }
     }
 
@@ -47,15 +48,15 @@ $noRecordsColor: #8b8686;
         border-radius: 5px;
         flex-direction: column;
         padding: 20px;
-    }
 
-    &__no-records {
-        display: flex;
-        flex-grow: 1;
-        justify-content: center;
-        align-items: center;
-        font-size: 24px;
-        box-sizing: border-box;
-        color: $noRecordsColor;
+        &__no-records {
+            display: flex;
+            flex-grow: 1;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            box-sizing: border-box;
+            color: $noRecordsColor;
+        }
     }
 }

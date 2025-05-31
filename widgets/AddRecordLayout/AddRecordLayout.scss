@@ -24,11 +24,16 @@ $notAllowedOpacity: 0.2;
         cursor: pointer;
         border: 1px solid #c188ff;
         margin: 20px 0 0 auto;
+        transition-duration: $transitionDuration;
 
         &__plus-img {
             width: $addFieldImgSideWidth;
             height: $addFieldImgSideWidth;
             user-select: none;
+        }
+
+        &:hover {
+            transform: scale(1.05);
         }
     }
 
