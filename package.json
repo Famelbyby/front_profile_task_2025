@@ -8,12 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "format": "prettier . --write",
-    "preview": "vite preview"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "preview": "vite preview",
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.(ts|tsx|js|jsx)": [
@@ -27,6 +23,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
+    "husky": "^9.1.7",
     "lint-staged": "^16.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

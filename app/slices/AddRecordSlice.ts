@@ -37,19 +37,32 @@ export const addRecordSlice = createSlice({
                 return;
             }
 
-            state.fields = [...state.fields.slice(0, deletedIndex), ...state.fields.slice(deletedIndex + 1)];
-            state.isValidRecord = state.fields.reduce((isValid, field) => isValid && (field !== ''), true);
+            state.fields = [
+                ...state.fields.slice(0, deletedIndex),
+                ...state.fields.slice(deletedIndex + 1),
+            ];
+            state.isValidRecord = state.fields.reduce(
+                (isValid, field) => isValid && field !== '',
+                true
+            );
         },
-        changeField: (state: AddRecordState, action: PayloadAction<ChangeFieldProps>) => {
-            const {index, newValue} = action.payload;
+        changeField: (
+            state: AddRecordState,
+            action: PayloadAction<ChangeFieldProps>
+        ) => {
+            const { index, newValue } = action.payload;
 
             state.fields[index] = newValue;
-            state.isValidRecord = state.fields.reduce((isValid, field) => isValid && (field !== ''), true);
+            state.isValidRecord = state.fields.reduce(
+                (isValid, field) => isValid && field !== '',
+                true
+            );
         },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { addField, clearAllFields, deleteField, changeField } = addRecordSlice.actions;
+export const { addField, clearAllFields, deleteField, changeField } =
+    addRecordSlice.actions;
 
 export default addRecordSlice.reducer;
