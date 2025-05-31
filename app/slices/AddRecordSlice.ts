@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { PostRecord } from '../../pages/TablePage/TablePageAPI';
+import type { PostRecordAnswer } from '../../shared/Interfaces';
+import { CODE_CREATED } from '../../shared/Codes';
 
 export interface AddRecordState {
     fields: string[];
@@ -67,8 +69,17 @@ export const addRecordSlice = createSlice({
             .addCase(PostRecord.pending, (state: AddRecordState) => {
                 state.isWaitingForResponse = true;
             })
-            .addCase(PostRecord.fulfilled, (state: AddRecordState) => {
+            .addCase(PostRecord.fulfilled, (state: AddRecordState, action) => {
+                const { status } = action.payload as PostRecordAnswer;
+
                 state.isWaitingForResponse = false;
+
+                if (status !== CODE_CREATED) {
+                    return;
+                }
+
+                state.fields = INITIAL_FIELDS_STATE;
+                state.isValidRecord = false;
             });
     },
 });

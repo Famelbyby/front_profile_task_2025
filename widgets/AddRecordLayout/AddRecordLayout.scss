@@ -4,6 +4,8 @@ $transitionDuration: 0.3s;
 $deleteImgSideWidth: 15px;
 $addFieldImgSideWidth: 20px;
 $notAllowedOpacity: 0.2;
+$disabledBackground: #dfdfdf;
+$dullText: #828282;
 
 .add-record {
     &-layout {
@@ -22,7 +24,7 @@ $notAllowedOpacity: 0.2;
         justify-content: center;
         border-radius: 50%;
         cursor: pointer;
-        border: 1px solid #c188ff;
+        border: 1px solid $secondColor;
         margin: 20px 0 0 auto;
         transition-duration: $transitionDuration;
 
@@ -40,8 +42,18 @@ $notAllowedOpacity: 0.2;
     &-header {
         display: flex;
         width: 100%;
-        font-size: 23px;
+        flex-direction: column;
         padding-top: 20px;
+        row-gap: 8px;
+    }
+
+    &-title {
+        font-size: 23px;
+    }
+
+    &-validation {
+        font-size: 13px;
+        color: $dullText;
     }
 
     &-fields {
@@ -65,6 +77,10 @@ $notAllowedOpacity: 0.2;
             border: 1px solid;
             box-sizing: border-box;
             border-radius: 10px;
+
+            &_disabled {
+                background-color: $disabledBackground;
+            }
         }
 
         &__input {
@@ -73,6 +89,7 @@ $notAllowedOpacity: 0.2;
             border: none;
             font-family: 'Montserrat';
             font-size: 16px;
+            background-color: inherit;
 
             &:focus-visible {
                 outline: none;

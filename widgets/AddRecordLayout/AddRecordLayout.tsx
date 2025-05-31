@@ -12,7 +12,14 @@ import { MAX_FIELD_LENGTH } from '../../shared/Consts';
 import { PostRecord } from '../../pages/TablePage/TablePageAPI';
 
 const AddRecordLayoutHeader: React.FC = () => {
-    return <div className="add-record-header">Добавить запись</div>;
+    return (
+        <div className="add-record-header">
+            <div className="add-record-title">Добавить запись</div>
+            <div className="add-record-validation">
+                *Максимальная длина поля - 25 символов
+            </div>
+        </div>
+    );
 };
 
 interface AddRecordInputProps {
@@ -26,10 +33,20 @@ const AddRecordInput: React.FC<AddRecordInputProps> = ({
     index,
     isMinimalLength,
 }) => {
+    const { isWaitingForResponse } = useSelector(
+        (state: AppState) => state.addRecord
+    );
     const dispatch = useDispatch();
 
     return (
-        <div className="add-record-field-wrapper">
+        <div
+            className={
+                'add-record-field-wrapper' +
+                (isWaitingForResponse
+                    ? ' add-record-field-wrapper_disabled'
+                    : '')
+            }
+        >
             <input
                 className="add-record-field__input"
                 maxLength={MAX_FIELD_LENGTH}
@@ -39,6 +56,7 @@ const AddRecordInput: React.FC<AddRecordInputProps> = ({
                         changeField({ index, newValue: event.target.value })
                     );
                 }}
+                disabled={isWaitingForResponse ? true : undefined}
             />
             <img
                 className={
@@ -93,7 +111,7 @@ const AddRecordLayoutFields: React.FC = () => {
 };
 
 const AddRecordLayoutFooter: React.FC = () => {
-    const { fields, isValidRecord } = useSelector(
+    const { fields, isValidRecord, isWaitingForResponse } = useSelector(
         (state: AppState) => state.addRecord
     );
     const dispatch = useDispatch<AppDispatch>();
@@ -103,7 +121,7 @@ const AddRecordLayoutFooter: React.FC = () => {
             <div
                 className={
                     'add-record-footer__send-button' +
-                    (!isValidRecord
+                    (!isValidRecord || isWaitingForResponse
                         ? ' add-record-footer__send-button_forbidden'
                         : '')
                 }
