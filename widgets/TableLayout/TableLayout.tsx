@@ -4,32 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { type AppDispatch, type AppState } from '../../app/store';
 import { GetRecords } from '../../pages/TablePage/TablePageAPI';
 import { clearRecords } from '../../app/slices/TableSlice';
-
-interface TableRecordProps {
-    fields: string[];
-    index: number;
-}
-
-const TableRecord: React.FC<TableRecordProps> = ({ fields, index }) => {
-    return (
-        <div className="table-record">
-            <div className="table-record__index">{index}</div>
-            {fields.map((field, fieldIndex) => {
-                return (
-                    <div
-                        className="table-record__field"
-                        style={{
-                            maxWidth: `calc((100% - 60px) / ${fields.length})`,
-                        }}
-                        key={fieldIndex}
-                    >
-                        {field}
-                    </div>
-                );
-            })}
-        </div>
-    );
-};
+import TableRecord from '../../entity/Record/Record';
 
 const TableLayout: React.FC = () => {
     const { records } = useSelector((state: AppState) => state.table);
