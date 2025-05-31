@@ -1,7 +1,7 @@
-import type React from "react";
-import AddRecordLayout from '../../widgets/AddRecordLayout/AddRecordLayout'
-import TableLayout from '../../widgets/TableLayout/TableLayout'
-import './TablePage.scss'
+import type React from 'react';
+import AddRecordLayout from '../../widgets/AddRecordLayout/AddRecordLayout';
+import TableLayout from '../../widgets/TableLayout/TableLayout';
+import './TablePage.scss';
 
 const TablePage: React.FC = () => {
     return (
@@ -9,7 +9,7 @@ const TablePage: React.FC = () => {
             <AddRecordLayout />
             <TableLayout />
         </div>
-    )
+    );
 };
 
 export default TablePage;
