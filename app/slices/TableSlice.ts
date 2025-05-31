@@ -5,6 +5,7 @@ import type { RecordType } from '../../shared/Interfaces';
 const RECORDS_MOCK: RecordType[] = [
     { fields: ['asdas', 'asdas', '-d-s'] },
     { fields: ['asdas', 'asdas', '-d-s', 'as', 'fdjfdnvdfhvhjfvnjfdvdfj'] },
+    {fields: ['32423', 'vd,vlk', '1','32423', 'vd,vlk', 'fdjfdnvdfhvhjfvnjfdvdfj','32423', 'vd,vlk', '1','32423', 'vd,vlk', '1','32423', 'vd,vlk', '1']},
 ];
 
 export interface TableState {
