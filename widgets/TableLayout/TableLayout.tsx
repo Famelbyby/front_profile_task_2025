@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './TableLayout.scss';
-import { useSelector } from 'react-redux';
-import type { AppState } from '../../app/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { type AppDispatch, type AppState } from '../../app/store';
+import { GetRecords } from '../../pages/TablePage/TablePageAPI';
+import { clearRecords } from '../../app/slices/TableSlice';
 
 interface TableRecordProps {
     fields: string[];
@@ -29,6 +31,15 @@ const TableRecord: React.FC<TableRecordProps> = ({ fields, index }) => {
 
 const TableLayout: React.FC = () => {
     const { records } = useSelector((state: AppState) => state.table);
+    const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+        dispatch(GetRecords());
+
+        return () => {
+            dispatch(clearRecords());
+        };
+    }, [dispatch]);
 
     return (
         <div className="table-layout">
