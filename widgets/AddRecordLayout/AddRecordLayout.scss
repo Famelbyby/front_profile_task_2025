@@ -1,0 +1,13 @@
+.add-record {
+    &-layout {
+        display: flex;
+        max-width: 40%;
+        min-width: 40%;
+    }
+
+    &__header {
+        display: flex;
+        width: 100%;
+        font-size: 23px;
+    }
+}
