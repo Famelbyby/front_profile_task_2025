@@ -67,6 +67,10 @@ const AddRecordInput: React.FC<AddRecordInputProps> = ({
                 }
                 src="/delete.png"
                 onClick={() => {
+                    if (isMinimalLength) {
+                        return;
+                    }
+
                     dispatch(deleteField(index));
                 }}
             />

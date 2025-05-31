@@ -4,6 +4,7 @@ export interface RecordType {
 
 export interface GetRecordsAnswer extends APIAnswer {
     records: RecordType[] | undefined;
+    lastPage: number | null;
 }
 
 export interface PostRecordAnswer extends APIAnswer {

@@ -10,16 +10,25 @@ import { CODE_CREATED, CODE_OK } from '../../shared/Codes';
 
 export interface TableState {
     records: RecordType[];
+    page: number;
+    waitingForLoading: boolean;
+    lastPage: number;
 }
 
 const initialState: TableState = {
     records: [],
+    page: 1,
+    waitingForLoading: false,
+    lastPage: -1,
 };
 
 export const tableSlice = createSlice({
     name: 'table',
     initialState,
     reducers: {
+        setWaitingForLoading: (state: TableState) => {
+            state.waitingForLoading = true;
+        },
         setRecords: (
             state: TableState,
             action: PayloadAction<RecordType[]>
@@ -40,13 +49,24 @@ export const tableSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(GetRecords.fulfilled, (state: TableState, action) => {
-                const { status, records } = action.payload as GetRecordsAnswer;
+                const { status, records, lastPage } =
+                    action.payload as GetRecordsAnswer;
 
                 if (status !== CODE_OK) {
                     return;
                 }
 
-                state.records = records || [];
+                state.waitingForLoading = false;
+
+                if (records !== undefined) {
+                    state.records = [...state.records, ...records];
+                }
+
+                if (lastPage !== null) {
+                    state.lastPage = lastPage;
+                }
+
+                state.page += 1;
             })
             .addCase(PostRecord.fulfilled, (state: TableState, action) => {
                 const { status, record } =
@@ -56,7 +76,7 @@ export const tableSlice = createSlice({
                     return;
                 }
 
-                if (record !== undefined) {
+                if (state.lastPage < state.page && record !== undefined) {
                     state.records = [...state.records, record];
                 }
             });
@@ -64,6 +84,7 @@ export const tableSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setRecords, addRecord, clearRecords } = tableSlice.actions;
+export const { setRecords, addRecord, clearRecords, setWaitingForLoading } =
+    tableSlice.actions;
 
 export default tableSlice.reducer;
