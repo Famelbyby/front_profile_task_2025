@@ -136,7 +136,7 @@ const AddRecordLayoutFooter: React.FC = () => {
                         : '')
                 }
                 onClick={() => {
-                    if (!isValidRecord) {
+                    if (!isValidRecord || isWaitingForResponse) {
                         return;
                     }
 
@@ -148,6 +148,10 @@ const AddRecordLayoutFooter: React.FC = () => {
             <div
                 className="add-record-footer__clear-all"
                 onClick={() => {
+                    if (isWaitingForResponse) {
+                        return;
+                    }
+
                     dispatch(clearAllFields());
                 }}
             >
