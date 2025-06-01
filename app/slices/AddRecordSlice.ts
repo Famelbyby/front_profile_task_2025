@@ -3,6 +3,10 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { PostRecord } from '../../pages/TablePage/TablePageAPI';
 import type { PostRecordAnswer } from '../../shared/Interfaces';
 import { CODE_CREATED } from '../../shared/Codes';
+import {
+    NOTIFICATION_WINDOW_ID,
+    NOTIFICATION_WINDOW_VISIBLE_CLASS,
+} from '../../shared/Consts';
 
 export interface AddRecordState {
     fields: string[];
@@ -76,6 +80,22 @@ export const addRecordSlice = createSlice({
 
                 if (status !== CODE_CREATED) {
                     return;
+                }
+
+                const notificationWindow = document.getElementById(
+                    NOTIFICATION_WINDOW_ID
+                );
+
+                if (notificationWindow !== null) {
+                    notificationWindow.classList.add(
+                        NOTIFICATION_WINDOW_VISIBLE_CLASS
+                    );
+
+                    setTimeout(() => {
+                        notificationWindow.classList.remove(
+                            NOTIFICATION_WINDOW_VISIBLE_CLASS
+                        );
+                    }, 2000);
                 }
 
                 state.fields = INITIAL_FIELDS_STATE;

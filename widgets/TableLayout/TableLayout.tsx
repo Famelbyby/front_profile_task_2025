@@ -20,14 +20,14 @@ const TableLayout: React.FC = () => {
     const tableLayout = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        dispatch(GetRecords(page));
+        dispatch(GetRecords(1));
 
         return () => {
             dispatch(clearRecords());
         };
     }, [dispatch]);
 
-    function lol() {
+    function UpdateRecords() {
         dispatch(GetRecords(page));
         dispatch(setWaitingForLoading());
     }
@@ -49,7 +49,7 @@ const TableLayout: React.FC = () => {
                         !waitingForLoading &&
                         page <= lastPage
                     ) {
-                        lol();
+                        UpdateRecords();
                     }
                 }
             }}

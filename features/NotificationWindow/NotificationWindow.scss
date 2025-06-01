@@ -1,0 +1,26 @@
+$windowBorderColor: #c188ff;
+$windowTransitionDuration: 0.3s;
+
+.notification-window {
+    padding: 10px 15px;
+    font-size: 17px;
+    border-radius: 10px;
+    border: 1px solid $windowBorderColor;
+    background-color: white;
+
+    &-wrapper {
+        position: absolute;
+        top: 20px;
+        left: 0;
+        width: 100%;
+        opacity: 0;
+        transition-duration: $windowTransitionDuration;
+
+        display: flex;
+        justify-content: center;
+
+        &_visible {
+            opacity: 1;
+        }
+    }
+}

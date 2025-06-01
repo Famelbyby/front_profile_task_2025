@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { CODE_CREATED, CODE_OK, SERVER_ERROR } from '../../shared/Codes';
 import type { RecordType } from '../../shared/Interfaces';
+import { RECORDS_URL } from '../../shared/URLs';
 
 export const GetRecords = createAsyncThunk(
     'tablePage/getRecords',
@@ -11,7 +12,7 @@ export const GetRecords = createAsyncThunk(
         let lastPage: number | null = -1;
 
         await axios
-            .get('http://localhost:3000/records?_page=' + page)
+            .get(RECORDS_URL + '?_page=' + page)
             .then((response) => {
                 status = response.status;
                 records = response.data.data;
@@ -32,7 +33,7 @@ export const PostRecord = createAsyncThunk(
         let record: RecordType | undefined = undefined;
 
         await axios
-            .post('http://localhost:3000/records', JSON.stringify(newRecord))
+            .post(RECORDS_URL, JSON.stringify(newRecord))
             .then((response) => {
                 status = response.status;
                 record = response.data;
