@@ -18,7 +18,8 @@ export const GetRecords = createAsyncThunk(
                 records = response.data.data;
                 lastPage = response.data.last;
             })
-            .catch(() => {
+            .catch((error) => {
+                console.log(error);
                 status = SERVER_ERROR;
             });
 

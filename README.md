@@ -1,73 +1,20 @@
-# React + TypeScript + Vite
+# Таблица с произвольным количеством полей
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Стек: React, Redux-toolkit, TypeScript, Jest
 
-Currently, two official plugins are available:
+Архитектура: FSD
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Количество полей в записи - от 5 до 15**
 
-## Expanding the ESLint configuration
+**Пагинация происходит по 10 записей по scroll**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Валидация:**
+- количество символов - не более 25 и не менее 1.
 
-```js
-export default tseslint.config({
-    extends: [
-        // Remove ...tseslint.configs.recommended and replace with this
-        ...tseslint.configs.recommendedTypeChecked,
-        // Alternatively, use this for stricter rules
-        ...tseslint.configs.strictTypeChecked,
-        // Optionally, add this for stylistic rules
-        ...tseslint.configs.stylisticTypeChecked,
-    ],
-    languageOptions: {
-        // other options...
-        parserOptions: {
-            project: ['./tsconfig.node.json', './tsconfig.app.json'],
-            tsconfigRootDir: import.meta.dirname,
-        },
-    },
-});
-```
+## Как пользоваться
+- сначала установить зависимости - **npm i**
+- здесь БД локальное, находится в файле **db.json**, так что в первую очередь надо запустить сервер БД: **npm run db**
+- далее прописываем **npm run dev** - заходим на localhost:5173 и готово!
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-<<<<<<< HEAD
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default tseslint.config({
-    plugins: {
-        // Add the react-x and react-dom plugins
-        'react-x': reactX,
-        'react-dom': reactDom,
-    },
-    rules: {
-        // other rules...
-        // Enable its recommended typescript rules
-        ...reactX.configs['recommended-typescript'].rules,
-        ...reactDom.configs.recommended.rules,
-    },
-});
-=======
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
->>>>>>> 86c7913c4a5bdcc5d9efed00c0241da775535dfb
-```
+## Тесты
+Для прогона тестов воспользуйтесь командой **npm run test** (будет показано покрытие файлов).

@@ -7,7 +7,7 @@ import {
     clearRecords,
     setWaitingForLoading,
 } from '../../app/slices/TableSlice';
-import TableRecord from '../../entity/Record/Record';
+import TableRecord from '../../entity/Record/TableRecord';
 
 const SCROLL_EDGE = 1000;
 
@@ -37,11 +37,6 @@ const TableLayout: React.FC = () => {
             ref={tableLayout}
             className="table-layout"
             onScroll={() => {
-                console.log(
-                    tableLayout.current?.scrollTop,
-                    tableLayout.current?.scrollHeight
-                );
-
                 if (tableLayout.current !== null) {
                     if (
                         tableLayout.current.scrollTop + SCROLL_EDGE >=

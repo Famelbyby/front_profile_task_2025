@@ -79,7 +79,9 @@ const AddRecordInput: React.FC<AddRecordInputProps> = ({
 };
 
 const AddRecordLayoutFields: React.FC = () => {
-    const { fields } = useSelector((state: AppState) => state.addRecord);
+    const { fields, isWaitingForResponse } = useSelector(
+        (state: AppState) => state.addRecord
+    );
     const dispatch = useDispatch();
 
     const isMinimalLength = fields.length === 5;
@@ -101,6 +103,10 @@ const AddRecordLayoutFields: React.FC = () => {
                 <div
                     className="add-record-add-field"
                     onClick={() => {
+                        if (isWaitingForResponse) {
+                            return;
+                        }
+
                         dispatch(addField());
                     }}
                 >
